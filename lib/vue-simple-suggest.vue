@@ -48,7 +48,7 @@
           </slot>
         </li>
 
-        <li v-if="!!this.$scopedSlots['misc-item-below']" @click="onClickBelow( $event)">
+        <li v-if="!!this.$scopedSlots['misc-item-below']" @click="onClickBelow">
           <slot name="misc-item-below"
             :suggestions="suggestions"
             :query="text"
@@ -232,8 +232,11 @@ export default {
   },
   methods: {
     onClickBelow(e) {
-      console.log('onClickBelow', e)
       this.$emit('below-click', e)
+      this.hideList()
+
+      /// Ensure, that all needed flags are off before finishing the click.
+      this.isClicking = false
     },
     isEqual(suggestion, item) {
       return item && (this.valueProperty(suggestion) == this.valueProperty(item))
