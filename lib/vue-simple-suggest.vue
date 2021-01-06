@@ -231,12 +231,9 @@ export default {
     this.prepareEventHandlers(false)
   },
   methods: {
-    onClickBelow(e) {
-      this.$emit('below-click', e)
-      this.hideList()
-
-      /// Ensure, that all needed flags are off before finishing the click.
-      this.isClicking = false
+    onClickBelow() {
+      console.log('below click library')
+      this.$emit('below-click')
     },
     isEqual(suggestion, item) {
       return item && (this.valueProperty(suggestion) == this.valueProperty(item))

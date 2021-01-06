@@ -118,6 +118,7 @@
     },
     methods: {
       onBelowClick(e) {
+        console.log('below click component')
         this.addToLog('below-click', e)
       },
       boldenSuggestion(scope) {
