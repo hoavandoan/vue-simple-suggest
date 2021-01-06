@@ -74,7 +74,7 @@
           <button @click.stop="goto(scope.suggestion.link)">Open WIKI</button>
         </div>
 
-        <div class="misc-item" slot="misc-item-below" slot-scope="{ suggestions }" v-if="loading">
+        <div class="misc-item" slot="misc-item-below" @below-click="onBelowClick" slot-scope="{ suggestions }" v-if="loading">
           <span>Loading...</span>
         </div>
       </vue-suggest>
@@ -114,6 +114,9 @@
       }
     },
     methods: {
+      onBelowClick(e) {
+        this.addToLog('below-click', e)
+      },
       boldenSuggestion(scope) {
         if (!scope) return scope;
 
