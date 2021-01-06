@@ -48,9 +48,8 @@
           </slot>
         </li>
 
-        <li v-if="!!this.$scopedSlots['misc-item-below']">
+        <li v-if="!!this.$scopedSlots['misc-item-below']" @click="onClickBelow( $event)">
           <slot name="misc-item-below"
-            @click="onClickBelow( $event)"
             :suggestions="suggestions"
             :query="text"
           ></slot>
