@@ -53,9 +53,9 @@ function _empty() {}function _awaitIgnored(value, direct) {
   }
 }function _invoke(body, then) {
   var result = body();if (result && result.then) {
-
     return result.then(then);
-  }return then(result);
+  }
+  return then(result);
 }function _await(value, then, direct) {
   if (direct) {
     return then ? then(value) : value;
@@ -88,20 +88,20 @@ function _empty() {}function _awaitIgnored(value, direct) {
           if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "tab", 9, $event.key, "Tab")) {
             return null;
           }_vm.isTabbed = true;
-        } } }, [_c('div', { ref: "inputSlot", staticClass: "input-wrapper", class: _vm.styles.inputWrapper, attrs: { "role": "combobox", "aria-haspopup": "listbox", "aria-owns": _vm.listId, "aria-expanded": !!_vm.listShown && !_vm.removeList ? 'true' : 'false' } }, [_vm._t("default", [_c('input', _vm._b({ staticClass: "default-input", class: _vm.styles.defaultInput, domProps: { "value": _vm.text || '' } }, 'input', _vm.$attrs, false))])], 2), _vm._v(" "), _c('transition', { attrs: { "name": "vue-simple-suggest" } }, [!!_vm.listShown && !_vm.removeList ? _c('ul', { staticClass: "suggestions", class: _vm.styles.suggestions, attrs: { "id": _vm.listId, "role": "listbox", "aria-labelledby": _vm.listId } }, [!!this.$scopedSlots['misc-item-above'] ? _c('li', [_vm._t("misc-item-above", null, { "suggestions": _vm.suggestions, "query": _vm.text })], 2) : _vm._e(), _vm._v(" "), _vm._l(_vm.suggestions, function (suggestion, index) {
+        } } }, [_c('div', { ref: "inputSlot", staticClass: "input-wrapper", class: _vm.styles.inputWrapper, attrs: { "role": "combobox", "aria-haspopup": "listbox", "aria-owns": _vm.listId, "aria-expanded": !!_vm.listShown && !_vm.removeList ? 'true' : 'false' } }, [_vm._t("default", [_c('input', _vm._b({ staticClass: "default-input", class: _vm.styles.defaultInput, domProps: { "value": _vm.text || '' } }, 'input', _vm.$attrs, false))])], 2), _vm._v(" "), _c('transition', { attrs: { "name": "vue-simple-suggest" } }, [!!_vm.listShown && !_vm.removeList ? _c('ul', { staticClass: "suggestions", class: _vm.styles.suggestions, attrs: { "id": _vm.listId, "role": "listbox", "aria-labelledby": _vm.listId }, on: { "mouseleave": function mouseleave($event) {
+          return _vm.hover(undefined);
+        } } }, [!!this.$scopedSlots['misc-item-above'] ? _c('li', [_vm._t("misc-item-above", null, { "suggestions": _vm.suggestions, "query": _vm.text })], 2) : _vm._e(), _vm._v(" "), _vm._l(_vm.suggestions, function (suggestion, index) {
       return _c('li', { key: _vm.getId(suggestion, index), staticClass: "suggest-item", class: [_vm.styles.suggestItem, {
           selected: _vm.isSelected(suggestion),
           hover: _vm.isHovered(suggestion)
         }], attrs: { "role": "option", "aria-selected": _vm.isHovered(suggestion) || _vm.isSelected(suggestion) ? 'true' : 'false', "id": _vm.getId(suggestion, index) }, on: { "mouseenter": function mouseenter($event) {
             return _vm.hover(suggestion, $event.target);
-          }, "mouseleave": function mouseleave($event) {
-            return _vm.hover(undefined);
           }, "click": function click($event) {
             return _vm.suggestionClick(suggestion, $event);
           } } }, [_vm._t("suggestion-item", [_c('span', [_vm._v(_vm._s(_vm.displayProperty(suggestion)))])], { "autocomplete": function autocomplete() {
           return _vm.autocompleteText(suggestion);
         }, "suggestion": suggestion, "query": _vm.text })], 2);
-    }), _vm._v(" "), !!this.$scopedSlots['misc-item-below'] ? _c('li', [_vm._t("misc-item-below", null, { "suggestions": _vm.suggestions, "query": _vm.text })], 2) : _vm._e()], 2) : _vm._e()])], 1);
+    }), _vm._v(" "), !!this.$scopedSlots['misc-item-below'] ? _c('li', { on: { "click": _vm.onClickBelow } }, [_vm._t("misc-item-below", null, { "suggestions": _vm.suggestions, "query": _vm.text })], 2) : _vm._e()], 2) : _vm._e()])], 1);
   },
   staticRenderFns: [],
   name: 'vue-simple-suggest',
@@ -280,6 +280,10 @@ function _empty() {}function _awaitIgnored(value, direct) {
   },
 
   methods: {
+    onClickBelow: function onClickBelow() {
+      console.log('below click library');
+      this.$emit('below-click');
+    },
     isEqual: function isEqual(suggestion, item) {
       return item && this.valueProperty(suggestion) == this.valueProperty(item);
     },
@@ -545,7 +549,9 @@ function _empty() {}function _awaitIgnored(value, direct) {
       this.isTabbed = false;
     },
     onFocus: function onFocus(e) {
-      this.isInFocus = true; // Only emit, if it was a native input focus
+      this.isInFocus = true;
+
+      // Only emit, if it was a native input focus
       if (e && !this.isFalseFocus) {
         this.$emit('focus', e);
       }
