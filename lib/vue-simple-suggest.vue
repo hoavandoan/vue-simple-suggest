@@ -232,7 +232,6 @@ export default {
   },
   methods: {
     onClickBelow() {
-      console.log('below click library')
       this.$emit('below-click')
     },
     isEqual(suggestion, item) {

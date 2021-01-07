@@ -70,9 +70,12 @@ function _empty() {}function _awaitIgnored(value, direct) {
     var result = body();
   } catch (e) {
     return recover(e);
-  }if (result && result.then) {
+  }
+
+  if (result && result.then) {
     return result.then(void 0, recover);
-  }return result;
+  }
+  return result;
 }function _finally(body, finalizer) {
   try {
     var result = body();
@@ -280,7 +283,6 @@ function _empty() {}function _awaitIgnored(value, direct) {
 
   methods: {
     onClickBelow: function onClickBelow() {
-      console.log('below click library');
       this.$emit('below-click');
     },
     isEqual: function isEqual(suggestion, item) {
@@ -558,9 +560,7 @@ function _empty() {}function _awaitIgnored(value, direct) {
       // Show list only if the item has not been clicked (isFalseFocus indicates that click was made earlier)
       if (!this.isClicking && !this.isFalseFocus) {
         this.showSuggestions();
-      }
-
-      this.isFalseFocus = false;
+      }this.isFalseFocus = false;
     },
     onInput: function onInput(inputEvent) {
       var value = !inputEvent.target ? inputEvent : inputEvent.target.value;
