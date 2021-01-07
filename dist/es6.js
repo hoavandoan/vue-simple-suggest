@@ -64,12 +64,9 @@ function _empty() {}function _awaitIgnored(value, direct) {
     var result = body();
   } catch (e) {
     return recover(e);
-  }
-
-  if (result && result.then) {
+  }if (result && result.then) {
     return result.then(void 0, recover);
-  }
-  return result;
+  }return result;
 }function _finally(body, finalizer) {
   try {
     var result = body();
@@ -264,6 +261,7 @@ function _empty() {}function _awaitIgnored(value, direct) {
   methods: {
     onClickBelow() {
       this.$emit('below-click');
+      this.hideList();
     },
     isEqual(suggestion, item) {
       return item && this.valueProperty(suggestion) == this.valueProperty(item);
@@ -532,7 +530,9 @@ function _empty() {}function _awaitIgnored(value, direct) {
       // Show list only if the item has not been clicked (isFalseFocus indicates that click was made earlier)
       if (!this.isClicking && !this.isFalseFocus) {
         this.showSuggestions();
-      }this.isFalseFocus = false;
+      }
+
+      this.isFalseFocus = false;
     },
     onInput(inputEvent) {
       const value = !inputEvent.target ? inputEvent : inputEvent.target.value;

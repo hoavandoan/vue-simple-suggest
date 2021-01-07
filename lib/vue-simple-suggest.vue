@@ -233,6 +233,7 @@ export default {
   methods: {
     onClickBelow() {
       this.$emit('below-click')
+      this.hideList()
     },
     isEqual(suggestion, item) {
       return item && (this.valueProperty(suggestion) == this.valueProperty(item))
