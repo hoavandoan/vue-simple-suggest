@@ -38,8 +38,7 @@ function _empty() {}function _awaitIgnored(value, direct) {
 }function _invoke(body, then) {
   var result = body();if (result && result.then) {
     return result.then(then);
-  }
-  return then(result);
+  }return then(result);
 }function _async(f) {
   return function () {
     for (var args = [], i = 0; i < arguments.length; i++) {

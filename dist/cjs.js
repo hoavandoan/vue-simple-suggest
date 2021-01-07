@@ -54,8 +54,7 @@ function _empty() {}function _awaitIgnored(value, direct) {
 }function _invoke(body, then) {
   var result = body();if (result && result.then) {
     return result.then(then);
-  }
-  return then(result);
+  }return then(result);
 }function _await(value, then, direct) {
   if (direct) {
     return then ? then(value) : value;
