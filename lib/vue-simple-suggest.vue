@@ -19,6 +19,7 @@
         role="listbox"
         :aria-labelledby="listId"
         :class="styles.suggestions"
+        @mouseleave="hover(undefined)"
       >
         <li v-if="!!this.$scopedSlots['misc-item-above']">
           <slot name="misc-item-above"
@@ -30,7 +31,6 @@
         <li class="suggest-item" v-for="(suggestion, index) in suggestions"
           role="option"
           @mouseenter="hover(suggestion, $event.target)"
-          @mouseleave="hover(undefined)"
           @click="suggestionClick(suggestion, $event)"
           :aria-selected="(isHovered(suggestion) || isSelected(suggestion)) ? 'true' : 'false'"
           :id="getId(suggestion, index)"
@@ -234,6 +234,10 @@ export default {
     onClickBelow() {
       console.log('below click library')
       this.$emit('below-click')
+      this.hideList()
+
+      /// Ensure, that all needed flags are off before finishing the click.
+      this.isClicking = false
     },
     isEqual(suggestion, item) {
       return item && (this.valueProperty(suggestion) == this.valueProperty(item))
